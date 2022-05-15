@@ -1,3 +1,133 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/** Bases **/
+body {
+    @apply bg-white h-screen dark:bg-slate-900;
+}
+
+.section {
+    @apply w-full min-h-screen;
+}
+.container {
+    @apply mx-auto p-4  text-slate-900 dark:text-slate-50;
+}
+.dashboard {
+    @apply flex flex-row flex-wrap justify-center;
+}
+h2 {
+    @apply font-medium antialiased text-2xl py-4 text-slate-900 dark:text-slate-50;
+}
+
+/** MENU **/
+.nav {
+    @apply relative bg-white dark:bg-slate-800;
+}
+.nav-bar {
+    @apply max-w-full mx-auto px-4 sm:px-6;
+}
+.nav-bar-container {
+    @apply flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10 dark:border-gray-700;
+}
+
+.nav-bar-container .logo-container {
+    @apply flex justify-start lg:w-0 lg:flex-1;
+}
+
+.logo-container .logo {
+    @apply h-8 w-auto sm:h-10;
+}
+
+.menu-mobile {
+    @apply -mr-2 -my-2 md:hidden;
+}
+
+.nav-bar-menu {
+    @apply hidden md:flex space-x-10;
+}
+
+.nav-bar-profile-container {
+    @apply hidden md:flex items-center justify-end md:flex-1 lg:w-0;
+}
+
+/** Form **/
+.group-form-input{
+    @apply flex flex-row flex-wrap justify-start justify-items-center items-center w-full;
+}
+.group-form-input label {
+    @apply dark:text-gray-100 text-slate-900 font-semibold;
+}
+.input-form-default{
+    @apply p-2 my-1 rounded-md italic text-gray-600 dark:bg-gray-200 placeholder:text-gray-400 placeholder:p-2 placeholder:font-sans placeholder:italic w-full;
+}
+
+.input-form-date {
+    @apply p-2 my-1 rounded-md italic text-gray-600 dark:bg-gray-200 placeholder:text-gray-400 placeholder:p-2 placeholder:font-sans placeholder:italic w-full;
+}
+
+.card {
+    @apply bg-slate-800 dark:bg-slate-700 rounded-lg p-4 flex flex-wrap flex-col justify-start m-4 drop-shadow-lg;
+}
+
+.btn-create {
+    @apply bg-green-400 rounded-md p-2 font-semibold hover:bg-green-500  mt-6;
+}
+
+/** Table List Customer **/
+.table-action{
+    @apply flex flex-row justify-between px-2;
+}
+.table-action-head{
+    @apply w-36;
+}
+
+.view-customer{
+    @apply text-green-300 hover:text-green-500;
+}
+.edit-customer {
+    @apply text-yellow-300 hover:text-yellow-500;
+}
+.delete-customer {
+    @apply text-red-300 hover:text-red-500;
+}
+
+/**** Customer Page ****/
+
+.banner-profile {
+    background-image: url('https://picsum.photos/1920/600?random=2');
+    @apply m-0 p-0 h-64 flex flex-row items-center rounded;
+}
+
+.immage-customer{
+    @apply flex flex-row justify-start items-center;
+}
+
+.immage-customer img {
+    @apply w-24 mx-6 rounded-full border-4 drop-shadow-lg;
+}
+
+.immage-customer .anagraphic {
+    @apply font-semibold text-2xl;
+}
+
+.immage-customer .birthday {
+    @apply font-sans;
+}
+
+.notes{
+    @apply py-4;
+}
+.notes h1 {
+    @apply text-2xl;
+}
+
+.fisarmonic-notes{
+    @apply bg-slate-400 w-full flex flex-row justify-between p-4 font-semibold rounded mt-4;
+}
+.fisarmonic-notes svg {
+    @apply w-6 h-6;
+}
+.description-notes {
+    @apply bg-gray-300 p-4 text-slate-900 -mt-1 rounded-br-lg rounded-bl-lg;
+}

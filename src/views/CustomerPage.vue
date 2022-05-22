@@ -1,11 +1,18 @@
 <script setup>
-  import {
-    Disclosure,
-    DisclosureButton,
-    DisclosurePanel,
-  } from '@headlessui/vue'
-  import { ChevronRightIcon } from '@heroicons/vue/solid'
-  import { RouterLink } from 'vue-router';
+    import {
+        Disclosure,
+        DisclosureButton,
+        DisclosurePanel,
+    } from '@headlessui/vue'
+    import { ChevronRightIcon } from '@heroicons/vue/solid'
+    import { RouterLink } from 'vue-router';
+    import { ref } from 'vue'
+    import {
+        Dialog,
+        DialogPanel,
+        DialogTitle,
+        DialogDescription,
+    } from '@headlessui/vue'
   const open = true
 </script>
 <template>

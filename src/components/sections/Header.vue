@@ -12,19 +12,19 @@ const profile_menu = [
   {
     name: 'Profile',
     description: 'Get a better understanding of where your traffic is coming from.',
-    href: '#',
+    href: 'profile-page#profile',
     icon: UserCircleIcon,
   },
   {
     name: 'Invoice',
     description: 'Speak directly to your customers in a more meaningful way.',
-    href: '#',
+    href: 'profile-page#invoice',
     icon: DocumentTextIcon,
   },
   {
     name: 'Your Plans',
     description: "Connect with third-party tools that you're already using.",
-    href: '#',
+    href: 'profile-page#subscription',
     icon: CreditCardIcon,
   }
 ]
@@ -39,10 +39,10 @@ const route = useRoute()
     <div class="nav-bar">
       <div class="nav-bar-container">
         <div class="logo-container">
-          <a href="#">
+          <router-link to="/">
             <span class="sr-only">Phoenix</span>
             <img class="logo" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="" />
-          </a>
+          </router-link>
         </div>
 
         <div class="menu-mobile">
@@ -69,7 +69,7 @@ const route = useRoute()
                   <PopoverPanel class="absolute z-10 -ml-4 mt-3 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:-left-15 lg:-translate-x-full">
                     <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
                       <div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                        <a v-for="item in profile_menu" :key="item.name" :href="item.href" class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
+                        <router-link v-for="item in profile_menu" :key="item.name" :to="item.href" class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50" >
                           <component :is="item.icon" class="flex-shrink-0 h-6 w-6 text-indigo-600" aria-hidden="true" />
                           <div class="ml-4">
                             <p class="text-base font-medium text-gray-900">
@@ -79,7 +79,7 @@ const route = useRoute()
                               {{ item.description }}
                             </p>
                           </div>
-                        </a>
+                        </router-link>
                       </div>
                     </div>
                   </PopoverPanel>

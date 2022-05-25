@@ -11,8 +11,10 @@
   "dependencies": {
     "@headlessui/vue": "^1.6.2",
     "@heroicons/vue": "^1.0.6",
+    "vee-validate": "^4.5.11",
     "vue": "^3.2.33",
-    "vue-router": "^4.0.14"
+    "vue-router": "^4.0.14",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",

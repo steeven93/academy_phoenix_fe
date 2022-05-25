@@ -1,5 +1,40 @@
 <script>
 import { RouterLink } from "vue-router";
+import User from '../models/user';
+import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
+import { required, email } from 'vee-validate/dist/rules'
+import { useStore, useRouter } from 'vuex'
+// No message specified.
+extend('email', email);
+extend('required', {
+  ...required,
+  message: 'This field is required'
+});
+const store = useStore()
+const router = useRouter()
+const loggedIn = store.state.auth.loggedIn
+
+if(loggedIn)
+{
+    router.push('/profile')
+}
+
+function handleRegistration()
+{
+    message = '';
+    submitted = true;
+    store.dispatch('auth/register', this.user).then(
+        data => {
+          this.message = "You have been registered successfully !";
+          this.successful = true;
+        },
+        error => {
+          this.message = error.toString();
+          this.successful = false;
+        }
+    )
+}
+
 </script>
 <template>
     <div class="w-full flex flex-wrap">

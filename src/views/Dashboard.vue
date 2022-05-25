@@ -1,7 +1,18 @@
 <script setup>
     import { RouterLink } from 'vue-router'
     import { ref } from 'vue'
-     import { Dialog, DialogTitle, DialogDescription } from '@headlessui/vue'
+    import { Dialog, DialogTitle, DialogDescription } from '@headlessui/vue'
+    import { useStore, useRouter } from 'vuex'
+
+    const store = useStore()
+    const router = useRouter()
+    const username = store.state.auth.username
+    const token = store.state.auth.token
+    const authenticated = store.state.auth.loggedIn
+    if(!authenticated)
+    {
+        router.push('/login')
+    }
 
     const isOpen = ref(false)
 

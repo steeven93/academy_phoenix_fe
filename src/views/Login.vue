@@ -1,5 +1,31 @@
 <script setup>
 import { RouterLink } from 'vue-router';
+import User from '../models/user';
+import { ValidationObserver, ValidationProvider, extend } from 'vee-validate';
+import { required, email } from 'vee-validate/dist/rules';
+import { useStore, useRouter } from 'vuex'
+
+const store = useStore()
+const router = useRouter()
+const user = new User('','','')
+const message = ""
+const errored = false
+
+function onSubmit()
+{
+    errored = false
+    store.dispatch('auth/login', user).then(
+        (response)  =>  {
+            errored = false
+            router.push('/dashboard')
+        },
+        error => {
+            errored = true
+            message = error.toString()
+        }
+    )
+}
+
 </script>
 
 <template >

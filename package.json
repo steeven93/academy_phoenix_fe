@@ -11,8 +11,10 @@
   "dependencies": {
     "@headlessui/vue": "^1.6.2",
     "@heroicons/vue": "^1.0.6",
+    "@vee-validate/rules": "^4.5.11",
+    "axios": "^0.27.2",
     "vee-validate": "^4.5.11",
-    "vue": "^3.2.33",
+    "vue": "^3.2.36",
     "vue-router": "^4.0.14",
     "vuex": "^4.0.2"
   },

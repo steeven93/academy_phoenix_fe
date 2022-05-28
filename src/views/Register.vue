@@ -1,40 +1,9 @@
 <script>
 import { RouterLink } from "vue-router";
 import User from '../models/user';
-import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
-import { required, email } from 'vee-validate/dist/rules'
-import { useStore, useRouter } from 'vuex'
-// No message specified.
-extend('email', email);
-extend('required', {
-  ...required,
-  message: 'This field is required'
-});
-const store = useStore()
-const router = useRouter()
-const loggedIn = store.state.auth.loggedIn
-
-if(loggedIn)
-{
-    router.push('/profile')
-}
-
-function handleRegistration()
-{
-    message = '';
-    submitted = true;
-    store.dispatch('auth/register', this.user).then(
-        data => {
-          this.message = "You have been registered successfully !";
-          this.successful = true;
-        },
-        error => {
-          this.message = error.toString();
-          this.successful = false;
-        }
-    )
-}
-
+// import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
+import { required, email, min } from '@vee-validate/rules'
+import logo from '../images/logo.png'
 </script>
 <template>
     <div class="w-full flex flex-wrap">
@@ -42,7 +11,7 @@ function handleRegistration()
         <div class="w-full md:w-1/2 flex flex-col">
 
             <div class="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-12">
-                <a href="#" class="bg-black text-white font-bold text-xl p-4" alt="Logo">Logo</a>
+                <img :src="logo" class="p-4" width="150">
             </div>
 
             <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">

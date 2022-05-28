@@ -1,30 +1,10 @@
 <script setup>
+import { required } from '@vee-validate/rules';
 import { RouterLink } from 'vue-router';
 import User from '../models/user';
-import { ValidationObserver, ValidationProvider, extend } from 'vee-validate';
-import { required, email } from 'vee-validate/dist/rules';
-import { useStore, useRouter } from 'vuex'
-
-const store = useStore()
-const router = useRouter()
-const user = new User('','','')
-const message = ""
-const errored = false
-
-function onSubmit()
-{
-    errored = false
-    store.dispatch('auth/login', user).then(
-        (response)  =>  {
-            errored = false
-            router.push('/dashboard')
-        },
-        error => {
-            errored = true
-            message = error.toString()
-        }
-    )
-}
+// import { ValidationObserver, ValidationProvider, extend } from 'vee-validate';
+// import { required, email, min } from '@vee-validate/rules';
+import logo from '../images/logo.png'
 
 </script>
 
@@ -34,7 +14,7 @@ function onSubmit()
         <div class="w-full md:w-1/2 flex flex-col">
 
             <div class="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-24">
-                <a href="#" class="bg-black text-white font-bold text-xl p-4">Logo</a>
+                <img :src="logo" class="p-4" width="150">
             </div>
 
             <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">

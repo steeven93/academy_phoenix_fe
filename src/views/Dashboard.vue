@@ -2,38 +2,10 @@
     import { RouterLink } from 'vue-router'
     import { ref } from 'vue'
     import { Dialog, DialogTitle, DialogDescription } from '@headlessui/vue'
-    import { useStore, useRouter } from 'vuex'
-
-    const store = useStore()
-    const router = useRouter()
-    const username = store.state.auth.username
-    const token = store.state.auth.token
-    const authenticated = store.state.auth.loggedIn
-    if(!authenticated)
-    {
-        router.push('/login')
-    }
-
-    const isOpen = ref(false)
-
-    function setIsOpen(value) {
-        isOpen.value = value
-    }
-
-    function getUrlCustomer(id_customer)
-    {
-        const base_url = 'customer-view-'
-
-        return base_url+id_customer
-    }
-
-    function deleteCustomer(id_customer)
-    {
-        //something
-        console.log('deleted')
-    }
+    import HeaderMenu from '@/components/sections/Header.vue'
 </script>
 <template>
+    <header-menu></header-menu>
     <div class="section">
         <div class="container dashboard">
             <div class="w-1/2 text-center">

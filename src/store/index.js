@@ -1,18 +1,23 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-
 import { auth } from './auth.module';
+import {
+    createStore,
+    Store as VuexStore,
+    createLogger
+} from 'vuex'
 
-Vue.use(Vuex);
+import { state } from './state'
+import { mutations } from './mutations'
+import { actions } from './actions'
+import { getters } from './getters'
 
-export default new Vuex.Store({
-    state: {
-    },
-    mutations: {
-    },
-    actions: {
-    },
-    modules: {
-        auth
-    },
-});
+export const store = createStore({
+    plugins: import.meta.env.VUE_APP_ENVIROMENT === 'dev' ? [createLogger()] : [],
+    state,
+    mutations,
+    actions,
+    getters
+})
+
+export function useStore() {
+    return store;
+}

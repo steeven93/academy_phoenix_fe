@@ -13,9 +13,11 @@
         DialogTitle,
         DialogDescription,
     } from '@headlessui/vue'
-  const open = true
+    import HeaderMenu from '@/components/sections/Header.vue'
+    const open = true
 </script>
 <template>
+    <header-menu></header-menu>
     <div class="section">
         <div class="container">
             <div class="card">

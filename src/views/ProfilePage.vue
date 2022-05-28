@@ -1,7 +1,9 @@
 <script>
+    import HeaderMenu from '@/components/sections/Header.vue'
     const NameSubscription = "Base"
 </script>
 <template>
+    <header-menu></header-menu>
     <div class="section" id="profile">
         <div class="container">
             <div class="card">

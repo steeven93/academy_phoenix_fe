@@ -4,35 +4,66 @@ import RegisterPage from '../views/Register.vue'
 import Dashboard from '../views/Dashboard.vue'
 import CustomerPage from '../views/CustomerPage.vue'
 import ProfilePage from '../views/ProfilePage.vue'
+import { store } from '../store/index.js'
+
+
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'Login Page',
+      name: 'Login',
       component: LoginPage
     },
     {
       path: '/register',
-      name: 'Register Page',
+      name: 'Register',
       component: RegisterPage
     },
     {
       path: '/dashboard',
       name: 'Dashboard',
-      component: Dashboard
+      component: Dashboard,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/customer-view-:id',
       name: 'Customer View',
-      component: CustomerPage
+      component: CustomerPage,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/profile-page',
       name: 'Profile Page',
-      component: ProfilePage
+      component: ProfilePage,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (!store.state.auth.isLoggedIn) {
+      console.log(store.state)
+      next({ name: 'Login' })
+    } else {
+      next() // go to wherever I'm going
+    }
+  } else if (to.matched.some(record => (record.name === 'Login') || (record.name === 'Register'))) {
+    next({ name: 'Dashboard' })
+  }
+  else {
+    next() // does not require auth, make sure to always call next()!
+  }
 })
 
 export default router

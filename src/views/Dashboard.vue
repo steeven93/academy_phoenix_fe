@@ -3,6 +3,32 @@
     import { ref } from 'vue'
     import { Dialog, DialogTitle, DialogDescription } from '@headlessui/vue'
     import HeaderMenu from '@/components/sections/Header.vue'
+    import { store } from '../store/index.js'
+
+    const isOpen = ref(false)
+
+    function setIsOpen(value) {
+        isOpen.value = value
+    }
+
+    function getUrlCustomer(id_customer)
+    {
+        const base_url = 'customer-view-'
+        return base_url+id_customer
+    }
+    function deleteCustomer(id_customer)
+    {
+        //something
+        console.log('deleted')
+    }
+
+    // const logged = store.state.auth.logged
+
+    // if(!logged)
+    // {
+    //     console.log(logged)
+    // }
+
 </script>
 <template>
     <header-menu></header-menu>

@@ -13,10 +13,12 @@
     "@heroicons/vue": "^1.0.6",
     "@vee-validate/rules": "^4.5.11",
     "axios": "^0.27.2",
+    "js-cookie": "^3.0.1",
     "vee-validate": "^4.5.11",
     "vue": "^3.2.36",
     "vue-router": "^4.0.14",
-    "vuex": "^4.0.2"
+    "vuex": "^4.0.2",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",

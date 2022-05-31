@@ -14,12 +14,12 @@ const router = createRouter({
     {
       path: '/',
       name: 'Login',
-      component: LoginPage
+      component: LoginPage,
     },
     {
       path: '/register',
       name: 'Register',
-      component: RegisterPage
+      component: RegisterPage,
     },
     {
       path: '/dashboard',
@@ -48,18 +48,23 @@ const router = createRouter({
   ]
 })
 
+
 router.beforeEach((to, from, next) => {
+
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    if (!store.state.auth.isLoggedIn) {
-      console.log(store.state)
+    if (!store.getters['auth/isLogged']) {
       next({ name: 'Login' })
     } else {
       next() // go to wherever I'm going
     }
   } else if (to.matched.some(record => (record.name === 'Login') || (record.name === 'Register'))) {
-    next({ name: 'Dashboard' })
+    if (store.getters['auth/isLogged']) {
+      next({ name: 'Dashboard' })
+    } else {
+      next() // go to wherever I'm going
+    }
   }
   else {
     next() // does not require auth, make sure to always call next()!

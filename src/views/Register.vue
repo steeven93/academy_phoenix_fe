@@ -4,6 +4,7 @@ import User from '../models/user';
 // import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
 import { required, email, min } from '@vee-validate/rules'
 import logo from '../images/logo.png'
+
 </script>
 <template>
     <div class="w-full flex flex-wrap">

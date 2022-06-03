@@ -8,6 +8,8 @@ import {
 import { ChevronDownIcon } from '@heroicons/vue/solid'
 import { useRoute } from 'vue-router';
 
+import logo from '../../images/logo.png'
+
 const profile_menu = [
   {
     name: 'Profile',
@@ -41,7 +43,7 @@ const route = useRoute()
         <div class="logo-container">
           <router-link to="/">
             <span class="sr-only">Phoenix</span>
-            <img class="logo" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="" />
+            <img class="logo" :src="logo" alt="" />
           </router-link>
         </div>
 

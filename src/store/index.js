@@ -1,13 +1,15 @@
 import { createApp } from 'vue';
 import { createStore } from 'vuex';
 import { AuthService } from './modules/auth-service';
+import { Customers } from './modules/customers';
 import createPersistedState from 'vuex-persistedstate';
 import Cookies from 'js-cookie'
 
 // Create a new store instance.
 export const store = createStore({
     modules: {
-        auth: AuthService
+        auth: AuthService,
+        customers: Customers,
     },
     plugins: [
         createPersistedState({

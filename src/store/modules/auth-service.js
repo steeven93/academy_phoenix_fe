@@ -2,22 +2,14 @@ import Cookies from 'js-cookie'
 import axios from 'axios';
 import router from '../../router/index.js'
 
-//127.0.0.1:5000
-const URL = 'http://127.0.0.1:8000/'
-const API_URL = 'http://127.0.0.1:8000/api/';
-const LOGIN = API_URL + 'login'
-const REGISTER = API_URL + 'register'
-const LOGOUT = API_URL + 'logout'
-const CSRF_TOKEN = URL + 'sanctum/csrf-cookie'
+const LOGIN = 'api/login'
+const REGISTER = 'api/register'
+const LOGOUT = 'api/logout'
+const CSRF_TOKEN = 'sanctum/csrf-cookie'
 
-axios.defaults.withCredentials = true
+// axios.defaults.withCredentials = true
 
-// axios.interceptors.request.use((config) => {
-//     config.baseURL = 'http://127.0.0.1:8000'
-//     config.withCredentials = true
 
-//     return config
-// })
 const state = () => ({
     user: {},
     isLoggedIn: false
@@ -36,16 +28,28 @@ const getters = {
             return cookieState.auth.isLoggedIn
         }
         return state.isLoggedIn
-    }
+    },
+
+    getToken: (state) => {
+        const cookie = (Cookies.get('vuex') != undefined) ? JSON.parse(Cookies.get('vuex')) : null
+
+        if (cookie != undefined) {
+            return cookie.auth.token
+        }
+        return state.token
+    },
+
 }
 
 const actions = {
     login({ commit }, data) {
-        axios.post(LOGIN, data).then((response) => {
-            commit('setSession', response.data)
-            if (response.data.success) {
-                router.go("/dashboard")
-            }
+        axios.get(CSRF_TOKEN).then((response) => {
+            axios.post(LOGIN, data).then((response) => {
+                commit('setSession', response.data)
+                if (response.data.success) {
+                    router.go("/dashboard")
+                }
+            })
         })
     },
 
@@ -56,7 +60,13 @@ const actions = {
     },
 
     register({ commit }, data) {
-        axios.post(LOGIN, data)
+        axios.get(CSRF_TOKEN).then((response) => {
+            axios.post(REGISTER, data)
+        })
+        commit('setSession', response.data)
+        if (response.data.success) {
+            router.go("/dashboard")
+        }
     },
 
     setCookie({ commit }, data) {
@@ -72,16 +82,19 @@ const mutations = {
     setSession(state, payload) {
         state.isLoggedIn = true
         state.user = payload.data
+        state.token = payload.data.token
     },
 
     setState(state, payload) {
-        state.auth.user = payload.user
-        state.auth.isLoggedIn = payload.isLoggedIn
+        state.user = payload.user
+        state.isLoggedIn = payload.isLoggedIn
+        state.token = payload.token
     },
 
     revokeSession(state, payload) {
-        state.logged = false,
-            state.user = {}
+        state.logged = false
+        state.user = {}
+        state.token = ''
     }
 }
 

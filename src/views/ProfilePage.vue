@@ -1,11 +1,11 @@
-<script>
+<script setup>
     import HeaderMenu from '@/components/sections/Header.vue'
     const NameSubscription = "Base"
 </script>
 <template>
     <header-menu></header-menu>
-    <div class="section" id="profile">
-        <div class="container">
+    <div class="section">
+        <div class="container" id="profile">
             <div class="card">
                 <div class="group-form-input">
                     <label for="">Photo Profile</label>
@@ -30,7 +30,7 @@
                 <button class="btn-create">Submit</button>
             </div>
         </div>
-        <div class="container">
+        <div class="container" id="invoice">
             <div class="card">
                 <table>
                     <thead>
@@ -46,7 +46,7 @@
                 </table>
             </div>
         </div>
-        <div class="container">
+        <div class="container" id="subscription">
             <div class="card">
                 Your Plan Subscription : {{ NameSubscription }}
             </div>

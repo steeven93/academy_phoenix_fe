@@ -51,16 +51,17 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 
+  const isLogged = store.getters['auth/isLogged']
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
-    if (!store.getters['auth/isLogged']) {
+    if (!isLogged) {
       next({ name: 'Login' })
     } else {
       next() // go to wherever I'm going
     }
   } else if (to.matched.some(record => (record.name === 'Login') || (record.name === 'Register'))) {
-    if (store.getters['auth/isLogged']) {
+    if (isLogged) {
       next({ name: 'Dashboard' })
     } else {
       next() // go to wherever I'm going

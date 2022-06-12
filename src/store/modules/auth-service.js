@@ -22,20 +22,22 @@ const getters = {
     },
 
     isLogged: (state) => {
-        const cookieState = (Cookies.get('vuex') != undefined) ? JSON.parse(Cookies.get('vuex')) : null
+        const cookie = (Cookies.get('auth') != undefined) ? JSON.parse(Cookies.get('auth')) : null
 
-        if (cookieState != undefined) {
-            return cookieState.auth.isLoggedIn
+        if (cookie != undefined) {
+            return cookie.token != undefined
         }
-        return state.isLoggedIn
+
+        return false
     },
 
     getToken: (state) => {
-        const cookie = (Cookies.get('vuex') != undefined) ? JSON.parse(Cookies.get('vuex')) : null
-
+        const cookie = (Cookies.get('auth') != undefined) ? JSON.parse(Cookies.get('auth')) : null
+        console.log(cookie)
         if (cookie != undefined) {
-            return cookie.auth.token
+            return cookie.token
         }
+
         return state.token
     },
 
@@ -46,6 +48,9 @@ const actions = {
         axios.get(CSRF_TOKEN).then((response) => {
             axios.post(LOGIN, data).then((response) => {
                 commit('setSession', response.data)
+
+                Cookies.set('auth', JSON.stringify({ token: response.data.data.token }))
+
                 if (response.data.success) {
                     router.go("/dashboard")
                 }
@@ -56,6 +61,7 @@ const actions = {
     logout({ commit }) {
         axios.post(LOGIN).then((response) => {
             commit('revokeSession', response.data)
+            Cookies.remove('auth')
         })
     },
 

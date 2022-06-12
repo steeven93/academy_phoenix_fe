@@ -8,7 +8,7 @@ const CUSTOMER = API_VERSION + 'customer/'
 const CREATE_CUSTOMER = CUSTOMER + 'create/'
 const CREATE_CUSTOMER_MATRIX = CUSTOMER + 'create_matrix/'
 const CREATE_CUSTOMER_THESIS = CUSTOMER + 'create_thesis/'
-const token = Cookies.get('vuex') ? JSON.parse(Cookies.get('vuex')).auth.token : ''
+const token = Cookies.get('auth') ? JSON.parse(Cookies.get('auth')).token : ''
 
 
 // axios.interceptors.request.use((config) => {
@@ -34,13 +34,14 @@ const getters = {
 
 const actions = {
     async customers({ commit }) {
-        return await axios.get(CUSTOMER)
-        // commit('setCustomers', response.data.data)
+        const response = await axios.get(CUSTOMER)
+        commit('setCustomers', response.data.data)
+        return response
     },
 
     createCustomer({ commit }, data) {
         axios.post(CREATE_CUSTOMER, data).then((response) => {
-            return response.data
+            commit('setCustomers', response.data.data)
         })
     },
 
@@ -64,8 +65,12 @@ const actions = {
 }
 
 const mutations = {
-    setCustomers(state, payload) {
-        state.customers = payload
+    setCustomers: (state, customers) => {
+        state.customers = customers
+    },
+
+    setCustomer: (state, customer) => {
+        state.customers.push(customer)
     }
 }
 

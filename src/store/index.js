@@ -12,18 +12,18 @@ export const store = createStore({
         customers: Customers,
     },
     plugins: [
-        createPersistedState({
-            getState: (key) => {
-                if (Cookies.get(key) != undefined) {
-                    JSON.parse(Cookies.get(key))
-                }
-            },
-            setState: (key, state) => {
-                if (Cookies.get(key) != undefined) {
-                    Cookies.remove(key)
-                }
-                Cookies.set(key, JSON.stringify(state), { expires: 3, secure: true })
-            }
-        })
+        // createPersistedState({
+        //     getState: (key) => {
+        //         if (Cookies.get(key) != undefined) {
+        //             JSON.parse(Cookies.get(key))
+        //         }
+        //     },
+        //     setState: (key, state) => {
+        //         if (Cookies.get(key) != undefined) {
+        //             Cookies.remove(key)
+        //         }
+        //         Cookies.set(key, JSON.stringify(state), { secure: true })
+        //     }
+        // })
     ]
 })

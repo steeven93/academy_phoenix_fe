@@ -59,9 +59,12 @@ const actions = {
     },
 
     logout({ commit }) {
-        axios.post(LOGIN).then((response) => {
+        axios.post(LOGOUT).then((response) => {
             commit('revokeSession', response.data)
             Cookies.remove('auth')
+            if (response.data.success) {
+                router.go("/dashboard")
+            }
         })
     },
 

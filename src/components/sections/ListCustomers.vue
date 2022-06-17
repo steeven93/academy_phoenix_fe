@@ -1,14 +1,14 @@
 <script>
     import { store } from '../../store/index.js'
     import { ref } from 'vue'
+    import { Dialog, DialogTitle, DialogDescription } from '@headlessui/vue'
     export default {
         name:'ListCustomers',
-        props:
-        {
-
+        components: {
+            Dialog,
+            DialogTitle,
+            DialogDescription,
         },
-
-        components: {},
 
         methods: {
             deleteCustomer(id_customer){
@@ -21,7 +21,7 @@
             },
 
             setIsOpen(value) {
-                isOpen.value = value
+                this.isOpen = value
             }
         },
         async mounted(){
@@ -31,8 +31,10 @@
         },
 
         data(){
+            const isOpen = ref(false)
             return {
-                customers: []
+                customers: [],
+                isOpen
             }
         }
     }

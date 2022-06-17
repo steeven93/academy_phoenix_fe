@@ -13,22 +13,19 @@ export default {
 
     components: {
         HeaderMenu,
-        Dialog,
-        DialogTitle,
-        DialogDescription,
         RouterLink,
         ListCustomers
     },
 
     methods:{
         createCustomer() {
-            store.dispatch('customers/createCustomer', customerForm)
+            store.dispatch('customers/createCustomer', this.customerForm)
         },
 
     },
 
-    setup(){
-        const isOpen = ref(false)
+    data(){
+
         const customerForm = {
             name: '',
             surname: '',
@@ -37,7 +34,6 @@ export default {
         }
 
         return {
-            isOpen,
             customerForm
         }
     }

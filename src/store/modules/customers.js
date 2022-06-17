@@ -10,12 +10,6 @@ const CREATE_CUSTOMER_MATRIX = CUSTOMER + 'create_matrix/'
 const CREATE_CUSTOMER_THESIS = CUSTOMER + 'create_thesis/'
 const token = Cookies.get('auth') ? JSON.parse(Cookies.get('auth')).token : ''
 
-
-// axios.interceptors.request.use((config) => {
-//     config.headers = {
-//         Authorization: `Bearer ${token}`
-//     }
-// })
 axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
 
 const state = () => ({
@@ -36,6 +30,11 @@ const actions = {
     async customers({ commit }) {
         const response = await axios.get(CUSTOMER)
         commit('setCustomers', response.data.data)
+        return response
+    },
+
+    async getCustomer({ commit }, id_customer) {
+        const response = await axios.get(CUSTOMER + id_customer)
         return response
     },
 

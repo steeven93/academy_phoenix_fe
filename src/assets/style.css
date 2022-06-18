@@ -149,3 +149,36 @@ h2 {
 .add-note {
     @apply bg-green-400 hover:bg-green-500 rounded-full p-2 text-white font-semibold;
 }
+
+
+/** MODAL **/
+
+.modal{
+    @apply relative z-50;
+}
+.modal .backdrop {
+    @apply fixed inset-0 bg-black/30;
+}
+.modal .screen_container {
+    @apply fixed inset-0 flex items-center justify-center;
+}
+
+.modal .screen_container .card_container {
+    @apply w-full max-w-sm rounded bg-slate-50 p-2;
+}
+.modal .screen_container .card_container .modal_title {
+    @apply text-center;
+}
+
+.card_container .button_section {
+    @apply flex justify-between items-center  mt-4;
+}
+
+.btn-modal-create {
+    @apply bg-green-400 rounded-md p-2 font-semibold hover:bg-green-500
+}
+
+.btn-modal-cancel {
+    @apply bg-red-400 rounded-md p-2 font-semibold hover:bg-red-500
+}
+

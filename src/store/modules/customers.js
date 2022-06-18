@@ -6,6 +6,8 @@ import { store } from '../../store/index.js'
 const API_VERSION = import.meta.env.VITE_API_VERSION
 const CUSTOMER = API_VERSION + 'customer/'
 const CREATE_CUSTOMER = CUSTOMER + 'create/'
+const CREATE_CUSTOMER_NOTE = API_VERSION + 'note/'
+const EDIT_OR_DELETE_CUSTOMER_NOTE = API_VERSION + 'note/{note}'
 const CREATE_CUSTOMER_MATRIX = CUSTOMER + 'create_matrix/'
 const CREATE_CUSTOMER_THESIS = CUSTOMER + 'create_thesis/'
 const token = Cookies.get('auth') ? JSON.parse(Cookies.get('auth')).token : ''
@@ -49,6 +51,12 @@ const actions = {
             return response.data
         })
     },
+    createCustomerNote({ commit }, data) {
+        const url = CREATE_CUSTOMER_NOTE.replace('{customer}', data.customer_id)
+        axios.post(url, data).then((response) => {
+            return response.data
+        })
+    },
 
     createCustomerThesis({ commit }, data) {
         axios.post(CREATE_CUSTOMER_THESIS, data, config).then((response) => {
@@ -56,8 +64,15 @@ const actions = {
         })
     },
 
-    deleteCustomer({ commit }, id_customer) {
-        axios.delete(CUSTOMER + id_customer).then((response) => {
+    deleteCustomer({ commit }, customer_id) {
+        axios.delete(CUSTOMER + customer_id).then((response) => {
+            return response.data
+        })
+    },
+
+    deleteCustomerNote({ commit }, data) {
+        const url = EDIT_OR_DELETE_CUSTOMER_NOTE.replace('{note}', data.note_id)
+        axios.delete(url, data).then((response) => {
             return response.data
         })
     }

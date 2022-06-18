@@ -5,6 +5,7 @@ import { store } from '../../store/index.js'
 
 const API_VERSION = import.meta.env.VITE_API_VERSION
 const CUSTOMER = API_VERSION + 'customer/'
+const EDIT_OR_DELETE_CUSTOMER = API_VERSION + 'customer/{customer}'
 const CREATE_CUSTOMER = CUSTOMER + 'create/'
 const CREATE_CUSTOMER_NOTE = API_VERSION + 'note/'
 const EDIT_OR_DELETE_CUSTOMER_NOTE = API_VERSION + 'note/{note}'
@@ -65,7 +66,8 @@ const actions = {
     },
 
     deleteCustomer({ commit }, customer_id) {
-        axios.delete(CUSTOMER + customer_id).then((response) => {
+        const url = EDIT_OR_DELETE_CUSTOMER.replace('{customer}', customer_id)
+        axios.delete(url).then((response) => {
             return response.data
         })
     },

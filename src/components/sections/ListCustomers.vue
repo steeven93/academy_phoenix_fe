@@ -11,8 +11,10 @@
         },
 
         methods: {
-            deleteCustomer(id_customer){
-                console.log('deleted')
+            deleteCustomer(customer_id){
+                store.dispatch('customers/deleteCustomer', customer_id).then((response)  =>  {
+                    return response.data
+                })
             },
 
             getUrlCustomer(id_customer) {

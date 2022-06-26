@@ -12,6 +12,7 @@
     "@headlessui/vue": "^1.6.2",
     "@heroicons/vue": "^1.0.6",
     "@vee-validate/rules": "^4.5.11",
+    "@vue-stripe/vue-stripe": "^4.4.2",
     "axios": "^0.27.2",
     "js-cookie": "^3.0.1",
     "vee-validate": "^4.5.11",

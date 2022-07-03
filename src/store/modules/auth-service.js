@@ -4,6 +4,8 @@ import router from '../../router/index.js'
 
 const LOGIN = 'api/login'
 const REGISTER = 'api/register'
+const ADDRESS_CREATE = 'api/v1/address/create'
+const INVOICE_CREATE = 'api/v1/invoice_create'
 const LOGOUT = 'api/logout'
 const CSRF_TOKEN = 'sanctum/csrf-cookie'
 
@@ -76,6 +78,25 @@ const actions = {
         if (response.data.success) {
             router.go("/dashboard")
         }
+    },
+
+    create_address({ commit }, data) {
+        axios.get(CSRF_TOKEN).then((response) => {
+            axios.post(ADDRESS_CREATE, data)
+        })
+    },
+
+    create_invoice({ commit }, data) {
+        axios.get(CSRF_TOKEN).then((response) => {
+            axios.post(INVOICE_CREATE, data)
+        })
+    },
+
+    async register_subscription({ commit }, data) {
+
+        const response = await axios.post(INVOICE_CREATE, data)
+        return response
+
     },
 
     setCookie({ commit }, data) {

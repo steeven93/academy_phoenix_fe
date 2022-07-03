@@ -30,7 +30,7 @@ export default {
                     quantity: 1,
                 }
             ],
-            successURL: 'http://127.0.0.1:8000/api/subscription_success',
+            successURL: 'http://localhost:300/success   ',
             cancelURL: 'http://localhost:300/',
             section_signup,
             section_invoice,
@@ -77,17 +77,15 @@ export default {
     methods: {
         submit() {
             // You will be redirected to Stripe's secure checkout page
-            console.log(this.$refs.checkoutRef)
             this.$refs.checkoutRef.redirectToCheckout();
         },
         register ()  {
-            console.log(this)
-            // store.dispatch('auth/register', registerForm)
+            store.dispatch('auth/register', this.registerForm)
             this.section_signup = false;
             this.section_invoice = true;
         },
-        create_invoice ()  {
-
+        create_address ()  {
+            store.dispatch('auth/create_address', this.addressForm)
             this.section_invoice = false;
             this.section_plan = true;
         }
@@ -179,7 +177,7 @@ export default {
 
 
                     <button class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8"
-                        @click="create_invoice">
+                        @click="create_address">
                         {{ settings_default_label.next_step}} </button>
                 </form>
                 <div class="text-center pt-12 pb-12">

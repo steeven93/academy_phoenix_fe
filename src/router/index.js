@@ -5,7 +5,7 @@ import Dashboard from '../views/Dashboard.vue'
 import CustomerPage from '../views/CustomerPage.vue'
 import ProfilePage from '../views/ProfilePage.vue'
 import { store } from '../store/index.js'
-
+import PaymentResult from '../views/PaymentResult.vue'
 
 
 const router = createRouter({

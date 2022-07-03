@@ -2,19 +2,20 @@
 import { RouterLink } from "vue-router";
 import User from '../models/user';
 // import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
-
+import {loadStripe} from "@stripe/stripe-js"
 import logo from '../images/logo.png'
 import { store } from '../store/index.js'
 import { StripeCheckout } from '@vue-stripe/vue-stripe';
 
 
 export default {
-    component: {
+    components: {
         RouterLink,
         User,
         logo,
         store,
-        StripeCheckout
+        StripeCheckout,
+        loadStripe
     },
     data() {
         this.publishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
@@ -25,12 +26,12 @@ export default {
             loading: false,
             lineItems: [
                 {
-                    price: 'some-price-id', // The id of the recurring price you created in your Stripe dashboard
+                    price: 'price_1LEfurKKfq5wF2ToAHjyTpmu', // The id of the recurring price you created in your Stripe dashboard
                     quantity: 1,
-                },
+                }
             ],
-            successURL: 'your-success-url',
-            cancelURL: 'your-cancel-url',
+            successURL: 'http://127.0.0.1:8000/api/subscription_success',
+            cancelURL: 'http://localhost:300/',
             section_signup,
             section_invoice,
             section_plan,
@@ -76,6 +77,7 @@ export default {
     methods: {
         submit() {
             // You will be redirected to Stripe's secure checkout page
+            console.log(this.$refs.checkoutRef)
             this.$refs.checkoutRef.redirectToCheckout();
         },
         register ()  {
@@ -176,8 +178,9 @@ export default {
                     </div>
 
 
-                    <button class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8" @click="register">
-                        {{ settings_default_label .next_step}} </button>
+                    <button class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8"
+                        @click="create_invoice">
+                        {{ settings_default_label.next_step}} </button>
                 </form>
                 <div class="text-center pt-12 pb-12">
                     <p>Already have an account? <router-link to="/" class="underline font-semibold">Log in here.
@@ -193,7 +196,8 @@ export default {
 
                 <div class="text-center pt-12 pb-12">
                     <stripe-checkout ref="checkoutRef" mode="subscription" :pk="publishableKey" :line-items="lineItems"
-                        :success-url="successURL" :cancel-url="cancelURL" @loading="v => loading = v" />
+                        :success-url="successURL" :cancel-url="cancelURL" @loading="v => loading = v">
+                    </stripe-checkout>
                     <button @click="submit">Subscribe!</button>
                 </div>
             </div>

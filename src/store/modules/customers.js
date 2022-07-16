@@ -26,7 +26,7 @@ const getters = {
 
     getCustomer: (state, customer_id) => {
         return state.customers.find(customer => customer.id === customer_id)
-    }
+    },
 }
 
 const actions = {
@@ -43,7 +43,7 @@ const actions = {
 
     createCustomer({ commit }, data) {
         axios.post(CREATE_CUSTOMER, data).then((response) => {
-            commit('setCustomers', response.data.data)
+            commit('setCustomer', response.data.data)
         })
     },
 
@@ -87,7 +87,7 @@ const mutations = {
 
     setCustomer: (state, customer) => {
         state.customers.push(customer)
-    }
+    },
 }
 
 export const Customers = {

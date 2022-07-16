@@ -4,8 +4,8 @@ import RegisterPage from '../views/Register.vue'
 import Dashboard from '../views/Dashboard.vue'
 import CustomerPage from '../views/CustomerPage.vue'
 import ProfilePage from '../views/ProfilePage.vue'
+import PhasesSubscription from '../views/PhasesSubscription.vue'
 import { store } from '../store/index.js'
-import PaymentResult from '../views/PaymentResult.vue'
 
 
 const router = createRouter({
@@ -20,6 +20,11 @@ const router = createRouter({
       path: '/register',
       name: 'Register',
       component: RegisterPage,
+    },
+    {
+      path: '/phase-subscription',
+      name: 'Phase Subscription',
+      component: PhasesSubscription,
     },
     {
       path: '/dashboard',
@@ -60,7 +65,14 @@ router.beforeEach((to, from, next) => {
     if (!isLogged) {
       next({ name: 'Login' })
     } else {
-      next() // go to wherever I'm going
+      store.dispatch('auth/getUserInfo').then((result) => {
+        if (!result.data.has_subscription) {
+          next({ name: 'Phase Subscription' }) // go to wherever I'm going
+        }
+        else {
+          next() // go to wherever I'm going
+        }
+      })
     }
   } else if (to.matched.some(record => (record.name === 'Login') || (record.name === 'Register'))) {
     if (isLogged) {

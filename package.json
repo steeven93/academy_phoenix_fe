@@ -13,12 +13,13 @@
     "@heroicons/vue": "^1.0.6",
     "@stripe/stripe-js": "^1.32.0",
     "@vee-validate/rules": "^4.5.11",
-    "@vue-stripe/vue-stripe": "^4.4.2",
+    "@vue-stripe/vue-stripe": "^4.4.4",
     "axios": "^0.27.2",
     "js-cookie": "^3.0.1",
     "vee-validate": "^4.5.11",
     "vue": "^3.2.36",
     "vue-router": "^4.0.14",
+    "vue-toastification": "^2.0.0-rc.5",
     "vuex": "^4.0.2",
     "vuex-persistedstate": "^4.1.0"
   },
@@ -35,6 +36,7 @@
     "prettier": "^2.5.1",
     "tailwindcss": "^3.0.24",
     "vite": "^2.9.9",
-    "vitest": "^0.9.3"
+    "vitest": "^0.9.3",
+    "vue-stripe-js": "^1.0.1"
   }
 }

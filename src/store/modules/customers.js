@@ -4,13 +4,13 @@ import router from '../../router/index.js'
 import { store } from '../../store/index.js'
 
 const API_VERSION = import.meta.env.VITE_API_VERSION
-const CUSTOMER = API_VERSION + 'customer/'
+const CUSTOMER = API_VERSION + 'customer'
 const EDIT_OR_DELETE_CUSTOMER = API_VERSION + 'customer/{customer}'
-const CREATE_CUSTOMER = CUSTOMER + 'create/'
-const CREATE_CUSTOMER_NOTE = API_VERSION + 'note/'
+const CREATE_CUSTOMER = CUSTOMER + '/create'
+const CREATE_CUSTOMER_NOTE = API_VERSION + 'note'
 const EDIT_OR_DELETE_CUSTOMER_NOTE = API_VERSION + 'note/{note}'
-const CREATE_CUSTOMER_MATRIX = CUSTOMER + 'create_matrix/'
-const CREATE_CUSTOMER_THESIS = CUSTOMER + 'create_thesis/'
+const CREATE_CUSTOMER_MATRIX = CUSTOMER + '/create_matrix'
+const CREATE_CUSTOMER_THESIS = CUSTOMER + '/create_thesis'
 const token = Cookies.get('auth') ? JSON.parse(Cookies.get('auth')).token : ''
 
 axios.defaults.headers.common = { 'Authorization': `Bearer ${token}` }
@@ -37,7 +37,7 @@ const actions = {
     },
 
     async getCustomer({ commit }, id_customer) {
-        const response = await axios.get(CUSTOMER + id_customer)
+        const response = await axios.get(CUSTOMER + '/' + id_customer)
         return response
     },
 

@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie'
 import axios from 'axios';
 import router from '../../router/index.js'
+// import { get } from 'http';
 
 const LOGIN = 'api/login'
 const REGISTER = 'api/register'
@@ -8,7 +9,7 @@ const ADDRESS_CREATE = 'api/v1/address/create'
 const INVOICE_CREATE = 'api/v1/invoice_create'
 const LOGOUT = 'api/logout'
 const CSRF_TOKEN = 'sanctum/csrf-cookie'
-
+const USER_INFO = 'api/user'
 // axios.defaults.withCredentials = true
 
 
@@ -71,13 +72,15 @@ const actions = {
     },
 
     register({ commit }, data) {
-        axios.get(CSRF_TOKEN).then((response) => {
-            axios.post(REGISTER, data)
+        axios.get(CSRF_TOKEN).then(() => {
+            axios.post(REGISTER, data).then((response) => {
+                commit('setSession', response.data)
+                if (response.data.success) {
+                    Cookies.set('auth', JSON.stringify({ token: response.data.data.token }))
+                    router.go("/phase-subscription")
+                }
+            })
         })
-        commit('setSession', response.data)
-        if (response.data.success) {
-            router.go("/dashboard")
-        }
     },
 
     create_address({ commit }, data) {
@@ -104,7 +107,12 @@ const actions = {
             const state = JSON.parse(Cookies.get('vuex'))
             commit('setState', state.auth)
         }
+    },
+    async getUserInfo({ commit }) {
+        const response = await axios.get(USER_INFO)
+        return response
     }
+
 }
 
 const mutations = {

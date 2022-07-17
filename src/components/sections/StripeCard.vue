@@ -3,6 +3,7 @@ import { StripeElements, StripeElement } from 'vue-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { defineComponent, ref, onBeforeMount } from 'vue'
 import { store } from '@/store/index.js'
+import router  from '../../router/index.js'
 import { mapGetters } from 'vuex'
 
 export default defineComponent({
@@ -78,7 +79,9 @@ export default defineComponent({
                             plan_subscription_id: plan_id,
                             payment_method_id: payment_method_id
                         }
-                        store.dispatch('subcription/subscribe', payload)
+                        store.dispatch('subcription/subscribe', payload).then((result)  =>  {
+                            router.go("/dashboard")
+                        })
                     })
                 });
         },

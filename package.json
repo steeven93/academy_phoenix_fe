@@ -15,6 +15,7 @@
     "@vee-validate/rules": "^4.5.11",
     "@vue-stripe/vue-stripe": "^4.4.4",
     "axios": "^0.27.2",
+    "file-saver": "^2.0.5",
     "js-cookie": "^3.0.1",
     "vee-validate": "^4.5.11",
     "vue": "^3.2.36",

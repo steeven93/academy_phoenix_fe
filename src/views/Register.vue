@@ -13,7 +13,6 @@ export default defineComponent({
     components: {
         RouterLink,
         User,
-        logo,
         store,
         RegisterAddress,
         PlansSubScription,
@@ -42,7 +41,6 @@ export default defineComponent({
             next_step: 'vai al prossimo passo',
             choose: 'Scegli'
         }
-
         return {
             registerForm,
             registerFormLabel,
@@ -62,11 +60,10 @@ export default defineComponent({
         <div class="w-full md:w-1/2 flex flex-col">
 
             <div class="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-12">
-                <img :src="logo" class="p-4" width="150">
+                <img src="../images/logo.png" class="p-4" width="150">
             </div>
             <!-- sign Up -->
-            <div
-                class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
+            <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
                 <p class="text-center text-3xl">{{ registerFormLabel.title }}</p>
                 <form class="flex flex-col pt-3 md:pt-8" onsubmit="event.preventDefault()">
                     <div class="flex flex-col pt-4">
@@ -98,8 +95,7 @@ export default defineComponent({
                         {{ settings_default_label .next_step}} </button>
                 </form>
                 <div class="text-center pt-12 pb-12">
-                    <p>{{ settings_default_label .already_account}} <router-link to="/"
-                            class="underline font-semibold">
+                    <p>{{ settings_default_label .already_account}} <router-link to="/" class="underline font-semibold">
                             {{settings_default_label.login_here}}
                         </router-link>
                     </p>

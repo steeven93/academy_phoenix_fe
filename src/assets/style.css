@@ -150,7 +150,16 @@ h2 {
     @apply bg-green-400 hover:bg-green-500 rounded-full p-2 text-white font-semibold;
 }
 
-
+.btn-download-excel {
+    @apply bg-green-700 text-white rounded-md flex flex-row p-4;
+}
+.btn-download-word {
+    @apply bg-blue-700 text-white rounded-md flex flex-row p-4  ml-2;
+}
+.btn-download-excel svg,
+.btn-download-word svg{
+    animation: rotation_loader 1s infinite;
+}
 /** MODAL **/
 
 .modal{
@@ -175,10 +184,17 @@ h2 {
 }
 
 .btn-modal-create {
-    @apply bg-green-400 rounded-md p-2 font-semibold hover:bg-green-500
+    @apply bg-green-400 rounded-md p-2 font-semibold hover:bg-green-500;
 }
 
 .btn-modal-cancel {
-    @apply bg-red-400 rounded-md p-2 font-semibold hover:bg-red-500
+    @apply bg-red-400 rounded-md p-2 font-semibold hover:bg-red-500;
 }
 
+@keyframes rotation_loader {
+    0%   { @apply rotate-0}
+    25%  { @apply rotate-3}
+    50%  { @apply rotate-12}
+    75%  { @apply rotate-90}
+    100% { @apply rotate-180}
+}

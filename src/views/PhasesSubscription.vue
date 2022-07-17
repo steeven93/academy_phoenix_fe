@@ -40,6 +40,9 @@ export default defineComponent({
 <template>
     <div class="w-full flex flex-wrap">
         <div class="w-full md:w-1/2 flex flex-col">
+            <div class="flex justify-center md:justify-start pt-12 md:pl-12 md:-mb-12">
+                <img src="../images/logo.png" class="p-4" width="150">
+            </div>
             <!-- Invoice address -->
             <register-address v-show="getSectionInvoice" :settings_default_label="settings_default_label">
             </register-address>

@@ -16,6 +16,7 @@
     import HeaderMenu from '@/components/sections/Header.vue'
     import { store } from '@/store/index.js'
     import router  from '@/router/index.js'
+import { mapGetters } from 'vuex';
     export default{
         name:'CustomerPage',
         components:{
@@ -30,10 +31,16 @@
             DisclosurePanel,
             RouterLink
         },
+        computed: {
+            ...mapGetters({
+                customer: 'customers/getSingleCustomer',
+                has_download_matrix: 'customers/getHasDownloadMatrix',
+                has_download_thesis: 'customers/getHasDownloadThesis'
+            })
+        },
         async mounted(){
             console.log(router)
-            const response = await store.dispatch('customers/getCustomer', router.currentRoute.value.params.id)
-            this.customer = response.data.data
+            store.dispatch('customers/getCustomer', router.currentRoute.value.params.id)
         },
         methods: {
             setIsOpen(value) {
@@ -42,19 +49,30 @@
 
             createNote() {
                 this.form.customer_id = router.currentRoute.value.params.id
-                store.dispatch('customers/createCustomerNote', this.form)
+                store.dispatch('customers/createCustomerNote', this.form).then((result) =>  {
+                    console.log(result)
+                    this.setIsOpen(false)
+                })
             },
+
             delete_note(note_id){
                 const data = {
                     note_id: note_id
                 }
                 store.dispatch('customers/deleteCustomerNote', data)
+            },
+
+            downloadExcel(){
+                store.dispatch('customers/createCustomerMatrix', router.currentRoute.value.params.id)
+            },
+
+            downloadWord(){
+                store.dispatch('customers/createCustomerThesis', router.currentRoute.value.params.id)
             }
         },
         data(){
             const open = false
             return {
-                customer: [],
                 open
             }
         },
@@ -85,6 +103,24 @@
                             <p class="birthday">{{ customer.birthday }}</p>
                         </div>
                     </div>
+                </div>
+                <div class="flex flex-row mt-4">
+                    <button type="button" @click="downloadExcel" class="btn-download-excel">
+                        <svg v-if="has_download_matrix" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        Scarica la Matrice
+                    </button>
+                    <button type="button" @click="downloadWord" class="btn-download-word">
+                        <svg v-if="has_download_thesis" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        Scarica la Tesi
+                    </button>
                 </div>
                 <div class="notes">
                     <div class="notes-header">

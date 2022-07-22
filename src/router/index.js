@@ -97,7 +97,7 @@ router.beforeEach(async (to, from, next) => {
     next(trySwitch(auth_require, has_subscription, is_logged, to))
   } catch (error) {
     console.log(error)
-    if ((error.response.status == 401) && err.response.data.message == 'Unauthenticated.') {
+    if ((error.response.status == 401) && error.response.data.message == 'Unauthenticated.') {
       is_logged = false
       Cookies.remove('auth')
       next(trySwitch(auth_require, has_subscription, is_logged, to))

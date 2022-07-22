@@ -54,51 +54,54 @@ const router = createRouter({
 })
 
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
 
-  const isLogged = store.getters['auth/isLogged']
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-
-    if (!isLogged) {
-      next({ name: 'Login' })
-    } else {
-      store.dispatch('auth/getUserInfo').then((result) => {
-        console.log(result.data)
-        if (!result.data.has_subscription) {
-          next({ path: '/phase-subscription' })
+  let is_logged = store.getters['auth/isLogged']
+  const auth_require = to.matched.some(record => record.meta.requiresAuth)
+  let has_subscription = false
+  const trySwitch = (auth_require, has_subscription, is_logged, to) => {
+    switch (to.name) {
+      case 'Phase Subscription':
+        if (is_logged && has_subscription) {
+          return { name: 'Dashboard' }
         }
-        else if (result.data.has_subscription && (to.matched.some(record => (record.name === 'Phase Subscription')))) {
-          console.log('dovrei andare a dashborad')
-          next({ name: 'Dashboard' }) // go to wherever I'm going
+        break;
+      case 'Login':
+      case 'Register':
+        if (is_logged) {
+          return { name: 'Dashboard' }
         }
-        else if (result.data.has_subscription) {
-          console.log('dovrei andare dovuneque')
-          next()
+        break;
+      default:
+        if (!is_logged && auth_require) {
+          return { name: 'Login' }
         }
-      }).catch((err) => {
-        console.log(err)
-        if ((err.response.status == 401) && err.response.data.message == 'Unauthenticated.') {
-          Cookies.remove('auth')
-          next()
+        else if (is_logged && !has_subscription && auth_require) {
+          return { name: 'Phase Subscription' }
         }
-      })
-    }
-  } else if (to.matched.some(record => (record.name === 'Login') || (record.name === 'Register'))) {
-    if (isLogged) {
-      next({ name: 'Dashboard' })
-    } else {
-      next() // go to wherever I'm going
+        else if (is_logged && auth_require && has_subscription) {
+          return
+        }
+        else if (!auth_require) {
+          return
+        }
+        break;
     }
   }
-  else if (to.matched.some(record => (record.name === 'Phase Subscription'))) {
-    if (isLogged) {
-      next({ name: 'Dashboard' })
-    } else {
-      next() // go to wherever I'm going
+
+  try {
+    if (is_logged) {
+      const response = await store.dispatch('auth/getUserInfo')
+      has_subscription = response.data.has_subscription
     }
-  }
-  else {
-    next()
+    next(trySwitch(auth_require, has_subscription, is_logged, to))
+  } catch (error) {
+    console.log(error)
+    if ((error.response.status == 401) && err.response.data.message == 'Unauthenticated.') {
+      is_logged = false
+      Cookies.remove('auth')
+      next(trySwitch(auth_require, has_subscription, is_logged, to))
+    }
   }
 })
 
